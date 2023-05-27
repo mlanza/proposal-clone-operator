@@ -55,6 +55,7 @@ const hero = {name: "Robin Hood", weapon: "Bow", arrows: 0};
 function resupply(archer){
   return archer.increment("arrows", 25);
 }
+
 const ready = resupply(hero!);
 
 //if implemented as a method instead:
