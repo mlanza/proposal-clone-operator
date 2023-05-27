@@ -55,18 +55,16 @@ const hero = {name: "Robin Hood", weapon: "Bow", arrows: 0};
 function resupply(archer){
   return archer.increment("arrows", 25);
 }
+const ready = resupply(hero!);
+
+//if implemented as a method instead:
+const ready = hero!.resupply();
 
 //faux command
 function resupply(archer){ //the conversion trivial
   return archer!.increment("arrows", 25);
 }
-
-const ready = resupply(hero!);
-
-//if implemented as a method instead:
-const ready = hero!.resupply();
 ```
-
 Clojure offers both kinds of commands.  It's just that, by default, since everything is immutable its primitives (e.g. maps and vectors) prefer faux commands (i.e. queries) to actual commands.  Change is, by necessity, simulated before it's applied.
 
 But a series of chained faux commands is often costlier from a performance perspective than beginning with a clone operation and chaining a series of in-place mutations against a mutable type.  Simulating change adds an overhead that actual change does not.  That's why Clojure has transients.  They allow the programmer to temporarily opt out of simulated change to get performance.
