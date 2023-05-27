@@ -14,11 +14,6 @@ const lineup = stooges! //copy before mutation
   .concat(duo);
 ```
 
-## How
-Use a well-defined symbol `Symbol.clone` so that any object other than functions can supply a function which shallow clones itself and which gets invoked when the operator is applied.
-
-This applies to both reference (object, array, date) and value types (record, tuple, number, string, etc.).  The difference is value types, being immutable, return themselves.  They still implement `clone` to maintain a common interface.
-
 ## Why
 FP has gained popularity because of the way it segregates programs into pure and impure modules.  One of its go-to practices is copy before mutation.  That is, if you want simulate state change with its native objects and arrays you can, as long as you take care to clone the object before mutating its copy.
 
@@ -134,6 +129,11 @@ function getTopTen(reportCards, honorsReportCards){ //don't actually mutate thes
 It's because copy-first is so ubiquitously the first necessary ingredient to maintaining purity in programs which rely primarily on JavaScript primitives (arrays and object) and which do not otherwise want (or require) more sophisticated persistent structures that it makes sense to allow this to be kicked off in a consistent and obvious manner.
 
 It abstracts aways the differences of the clone operation on arrays, objects, dates, etc. and binds them with a single common approach.
+
+## How
+Use a well-defined symbol `Symbol.clone` so that any object other than functions can supply a function which shallow clones itself and which gets invoked when the operator is applied.
+
+This applies to both reference (object, array, date) and value types (record, tuple, number, string, etc.).  The difference is value types, being immutable, return themselves.  They still implement `clone` to maintain a common interface.
 
 ## Further Considerations
 * This proposal complements the [command syntax proposal](https://github.com/mlanza/proposal-command-syntax).
