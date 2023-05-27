@@ -72,7 +72,7 @@ const ready = resupply(hero!);
 const ready = hero!.resupply();
 ```
 
-Clojure offers both kinds of commands.  It's just that, by default, since everything is immutable it primitives (e.g. maps and vectors) prefer faux commands (i.e. queries) to actual commands.  Change is, by necessity, simulated before it's applied.
+Clojure offers both kinds of commands.  It's just that, by default, since everything is immutable its primitives (e.g. maps and vectors) prefer faux commands (i.e. queries) to actual commands.  Change is, by necessity, simulated before it's applied.
 
 But a series of chained faux commands is often costlier from a performance perspective than beginning with a clone operation and chaining a series of in-place mutations against a mutable type.  Simulating change adds an overhead that actual change does not.  That's why Clojure has transients.  They allow the programmer to temporarily opt out of simulated change to get performance.
 
@@ -136,7 +136,7 @@ It's because copy-first is so ubiquitously the first necessary ingredient to mai
 It abstracts aways the differences of the clone operation on arrays, objects, dates, etc. and binds them with a single common approach.
 
 ## Further Considerations
-* This proposal complements the (command syntax proposal)[../proposal-command-syntax].
+* This proposal complements the [command syntax proposal](../proposal-command-syntax).
 * This should not be confused by the parser as a logical not (`!`) — `const restaurant = cash > 12, tvDinner = !restaurant`
 * Clone operators don't work on functions due to that proposal.
 * Provide deep clone operator `!!` - map it to `cloneStructure`?
