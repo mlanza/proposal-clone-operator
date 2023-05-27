@@ -136,7 +136,7 @@ It's because copy-first is so ubiquitously the first necessary ingredient to mai
 It abstracts aways the differences of the clone operation on arrays, objects, dates, etc. and binds them with a single common approach.
 
 ## Further Considerations
-* This proposal complements the [command syntax proposal](../proposal-command-syntax).
+* This proposal complements the [command syntax proposal](https://github.com/mlanza/proposal-command-syntax).
 * This should not be confused by the parser as a logical not (`!`) — `const restaurant = cash > 12, tvDinner = !restaurant`
 * Clone operators don't work on functions due to that proposal.
 * Provide deep clone operator `!!` - map it to `cloneStructure`?
