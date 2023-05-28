@@ -46,7 +46,9 @@ Faux commands are the bread and butter of this kind of separation.  They rely on
 
 In its optimal form it may be used with (persistent) data types whose simulated commands benefit from efficient, under-the-hood structural reuse.  Clojure's go-to structures, maps and vectors, do precisely this.  Regardless of the type—object, array, map, or vector—reaching for faux commands allows one to simulate effects and solve problems functionally.
 
-Although the above mentioned some development work surrounding arrays, that was only a single illustration.  **The same thinking can be applied to all native and custom types.** Invariably, the cornerstone of purity when you're working with nonpersistent data types like objects, arrays, and their otherwise mutable derivatives is clone.  Take the initial operand of your method chain or pipeline and clone it.
+Although the above mentioned some development work surrounding arrays, that was only a single illustration.  **The same thinking can be applied to all native and custom types.** Invariably, the cornerstone of purity when you're working with nonpersistent data types like objects, arrays, and their otherwise mutable derivatives is clone.
+
+Here's an example of an *impure* command...
 
 ```js
 const hero = {name: "Robin Hood", weapon: "Bow", arrows: 0};
@@ -55,14 +57,13 @@ function resupply(archer){ //command
   return archer.increment("arrows", 25);
 }
 ```
-All it takes to refactor `resupply` to purity is the single-character clone operator.
+...which can be transformed into a pure faux command with a single character.  That's because clone is the necessary first operation in *any method chain or pipeline* when reference types are your staple constructs.
 
 ```js
 function resupply(archer){ //faux command
   return archer!.increment("arrows", 25);
 }
 ```
-
 Clojure offers both kinds of commands.  It's just that, by default, since everything is immutable its primitives (e.g. maps and vectors) prefer faux commands (i.e. queries) to actual commands.  Change is, by necessity, simulated before it's applied.
 
 But a series of chained faux commands is often costlier from a performance perspective than beginning with a clone operation and chaining a series of in-place mutations against a mutable type.  Simulating change adds an overhead that actual change does not.  That's why Clojure has transients.  They allow the programmer to temporarily opt out of simulated change to get performance.
