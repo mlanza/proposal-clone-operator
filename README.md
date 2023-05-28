@@ -20,7 +20,7 @@ FP has gained popularity because of the way it segregates programs into pure and
 Copy first is so prevalent it can be made ever more convenient.
 
 ### Faux Commands
-The term *commands* is being used as functions with side effects, *queries* as functions without.
+The term *commands* is being used as functions with side effects, *queries* as functions without, basically as used in [Command-Query Separation](https://en.wikipedia.org/wiki/Command%E2%80%93query_separation).
 
 Arrays have several mutating commands: `sort`, `reverse`, `splice`.  But the advent of FP has caused devs to rethink how to simulate mutations using queries.
 
