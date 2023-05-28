@@ -136,7 +136,7 @@ This applies to both reference (object, array, date) and value types (record, tu
 * This proposal complements the [command syntax proposal](https://github.com/mlanza/proposal-command-syntax).
 * This should not be confused by the parser as a logical not (`!`) — `const restaurant = cash > 12, tvDinner = !restaurant`
 * Clone operators don't work on functions due to that proposal.
-* Provide deep clone operator `!!` - map it to `cloneStructure`?
+* Deep cloning?  Separate `!!` operator?
 
 ## Examples
 ```js
