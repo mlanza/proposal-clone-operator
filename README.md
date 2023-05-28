@@ -57,11 +57,15 @@ function resupply(archer){ //command
   return archer.increment("arrows", 25);
 }
 ```
-...which can be transformed into a pure faux command with a single character.  That's because clone is the necessary first operation in *any method chain or pipeline* when reference types are your staple constructs.
+...which can be transformed into a pure faux command with a single character.  That's because, whenever you're working with reference types, to gain purity, clone is the necessary first operation against the first operand in *any function, method chain or pipeline*.
 
 ```js
 function resupply(archer){ //faux command
   return archer!.increment("arrows", 25);
+}
+
+function toSorted(...args){
+  return this!.sort(...args); //! = copy
 }
 ```
 Clojure offers both kinds of commands.  It's just that, by default, since everything is immutable its primitives (e.g. maps and vectors) prefer faux commands (i.e. queries) to actual commands.  Change is, by necessity, simulated before it's applied.
@@ -123,9 +127,11 @@ function getTopTen(reportCards, honorsReportCards){ //don't actually mutate thes
     .slice(0, 10);
 }
 ```
-It's because copy-first is so ubiquitously the first necessary ingredient to maintaining purity in programs which rely primarily on JavaScript primitives (arrays and object) and which do not otherwise want (or require) more sophisticated persistent structures that it makes sense to allow this to be kicked off in a consistent and obvious manner.
+It's because copy-first is so ubiquitously the first necessary ingredient to having purity it makes sense to allow it to be kicked off in a consistent and obvious manner.
 
-It abstracts aways the differences of the clone operation on arrays, objects, dates, etc. and binds them with a single common approach.
+It offers a unified protocol for cloning reference types (arrays, objects, dates, etc.)  so you don't have to flesh out the clone operation (e.g. `const cloned = new Date(dt.getTime());`) or remember which method (e.g. `slice`) to call.  This is something which can and should be standardized.
+
+And for custom types (e.g. `Person`), the dev can specify how clone works as needed if the default operation isn't sufficient (e.g. `const cloned = Object.assign(new Person(), fred);`).
 
 ## How
 Use a well-defined symbol `Symbol.clone` so that any object other than functions can supply a function which shallow clones itself and which gets invoked when the operator is applied.
